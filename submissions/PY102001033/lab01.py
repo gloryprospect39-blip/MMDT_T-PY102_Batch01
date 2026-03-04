@@ -112,20 +112,19 @@ def doubleIt(head):
 
     carry = 0
     curr = head
+    prev = None
 
     while curr:
         total = curr.val * 2 + carry
         curr.val = total % 10
         carry = total // 10
-
-
-        if curr.next is None and carry:
-            curr.next = Node(carry)
-            carry = 0
-
+        prev = curr
         curr = curr.next
 
-    return reverse(head)
+    if carry:
+        prev.next = Node(carry)
+
+        return reverse(head)
 
 def reverse(head):
     prev = None
@@ -139,10 +138,83 @@ def reverse(head):
 
     return prev
 
-ll = SinglyLinkedList.from_list([1, 8, 9])
+class Node:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    @classmethod
+    def from_list(cls, data_list):
+        sll = cls()
+        if not data_list:
+            return sll
+
+        sll.head = Node(data_list[0])
+        current = sll.head
+        for val in data_list[1:]:
+            current.next = Node(val)
+            current = current.next
+        sll.tail = current
+        return sll
+
+    def to_list(self):
+        result = []
+        current = self.head
+        while current:
+            result.append(current.val)
+            current = current.next
+        return result
+
+def doubleIt(head):
+    """
+    LeetCode 2816 — Double a Number Represented as a Linked List
+    Time: O(n)
+    Space: O(1)
+    """
+
+    # Reverse list
+    head = reverse(head)
+
+    carry = 0
+    curr = head
+    prev = None
+
+    while curr:
+        total = curr.val * 2 + carry
+        curr.val = total % 10
+        carry = total // 10
+        prev = curr
+        curr = curr.next
+
+    # If carry remains after last node
+    if carry:
+        prev.next = Node(carry)
+
+    # Reverse back
+    return reverse(head)
+
+
+def reverse(head):
+    prev = None
+    curr = head
+
+    while curr:
+        next_node = curr.next
+        curr.next = prev
+        prev = curr
+        curr = next_node
+
+    return prev
+
+ll = SinglyLinkedList.from_list([1,8, 9])
 ll.head = doubleIt(ll.head)
 print(ll.to_list())
 
-ll = SinglyLinkedList.from_list([9, 9, 9])
+ll = SinglyLinkedList.from_list([9,9,9])
 ll.head = doubleIt(ll.head)
 print(ll.to_list())
