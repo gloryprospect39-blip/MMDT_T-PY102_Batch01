@@ -9,44 +9,8 @@ Original file is located at
 # LeetCode 206 — Reverse Linked List
 """
 
-class Node:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-
-
-class SinglyLinkedList:
-    def __init__(self, head=None):
-        self.head = head
-
-    @classmethod
-    def from_list(cls, values):
-        head = None
-        tail = None
-        for v in values:
-            node = Node(v)
-            if head is None:
-                head = node
-                tail = node
-            else:
-                tail.next = node
-                tail = node
-        return cls(head)
-
-    def to_list(self):
-        result = []
-        curr = self.head
-        while curr:
-            result.append(curr.val)
-            curr = curr.next
-        return result
-
 def reverseList(head):
-    """
-    LeetCode 206 — Reverse Linked List
-    Reverse a singly linked list and return the new head.
-    Time: O(n), Space: O(1)
-    """
+
     prev = None
     curr = head
 
@@ -58,11 +22,11 @@ def reverseList(head):
 
     return prev
 
-ll = SinglyLinkedList.from_list([1, 2, 3, 4])
+ll = SinglyLinkedList.from_list([1,2,3,4,5])
 ll.head = reverseList(ll.head)
 print(ll.to_list())
 
-"""# **LeetCode 2816 — Double a Number Represented as a Linked List**"""
+"""# LeetCode 2816 — Double a Number Represented as a Linked List"""
 
 class Node:
     def __init__(self, val=0, next=None):
@@ -97,13 +61,7 @@ class SinglyLinkedList:
         return result
 
 def doubleIt(head):
-    """
-    LeetCode 2816 — Double a Number Represented as a Linked List
-    Time: O(n)
-    Space: O(1)
-    """
 
-    # Reverse list
     head = reverse(head)
 
     carry = 0
@@ -117,11 +75,11 @@ def doubleIt(head):
         prev = curr
         curr = curr.next
 
-    # If carry remains after last node
+
     if carry:
         prev.next = Node(carry)
 
-    # Reverse back
+
     return reverse(head)
 
 
@@ -174,13 +132,7 @@ class SinglyLinkedList:
         return result
 
 def doubleIt(head):
-    """
-    LeetCode 2816 — Double a Number Represented as a Linked List
-    Time: O(n)
-    Space: O(1)
-    """
 
-    # Reverse list
     head = reverse(head)
 
     carry = 0
@@ -197,7 +149,6 @@ def doubleIt(head):
     if carry:
         prev.next = Node(carry)
 
-    # Reverse back
     return reverse(head)
 
 
